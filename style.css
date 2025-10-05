@@ -1,0 +1,151 @@
+/* 🌸 Reset and Base Style */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', sans-serif;
+  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+/* 📋 To-Do Board */
+.board {
+  background: #ffffff;
+  padding: 25px 30px;
+  border-radius: 15px;
+  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+  width: 380px;
+  transition: all 0.3s ease;
+}
+
+.board:hover {
+  transform: translateY(-5px);
+}
+
+/* 📝 Input Area */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.input-area input {
+  flex: 1;
+  padding: 10px 12px;
+  border: 2px solid #ddd;
+  border-radius: 8px;
+  font-size: 15px;
+  transition: 0.3s;
+}
+
+.input-area input:focus {
+  border-color: #6a5acd;
+  outline: none;
+  box-shadow: 0 0 6px rgba(106, 90, 205, 0.3);
+}
+
+.input-area button {
+  padding: 10px 18px;
+  background: #6a5acd;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  transition: background 0.3s;
+}
+
+.input-area button:hover {
+  background: #5941a9;
+}
+
+/* ✅ Task List */
+ul {
+  list-style-type: none;
+  padding: 0;
+  max-height: 300px;
+  overflow-y: auto;
+  scrollbar-width: thin;
+  scrollbar-color: #b0aee0 #f5f5f5;
+}
+
+/* 🎯 Each Task */
+li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8f8ff;
+  border: 1px solid #e2e2ff;
+  padding: 10px;
+  border-radius: 8px;
+  margin-bottom: 10px;
+  transition: all 0.3s ease;
+}
+
+li:hover {
+  background: #f0f0ff;
+  transform: scale(1.02);
+}
+
+/* ✏️ Task Input Inside List */
+li input[type="text"] {
+  border: none;
+  background: transparent;
+  font-size: 15px;
+  flex: 1;
+  color: #333;
+  font-weight: 500;
+}
+
+li input[type="text"]:disabled {
+  color: #555;
+}
+
+/* 🔘 Buttons */
+li button {
+  border: none;
+  border-radius: 6px;
+  padding: 6px 10px;
+  font-size: 13px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+li button:nth-child(2) {
+  background: #ff6b6b;
+  color: white;
+}
+
+li button:nth-child(2):hover {
+  background: #e45858;
+}
+
+li button:nth-child(3) {
+  background: #6a5acd;
+  color: white;
+}
+
+li button:nth-child(3):hover {
+  background: #5941a9;
+}
+
+/* 🌟 Scrollbar Design (for Chrome/Edge) */
+ul::-webkit-scrollbar {
+  width: 6px;
+}
+
+ul::-webkit-scrollbar-thumb {
+  background: #b0aee0;
+  border-radius: 10px;
+}
+
+ul::-webkit-scrollbar-track {
+  background: #f5f5f5;
+}
