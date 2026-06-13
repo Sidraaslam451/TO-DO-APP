@@ -3,24 +3,77 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>TRELLO APPLICATION</title>
+    <title>TaskFlow — To-Do App</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Syne:wght@700;800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="style.css" />
   </head>
 
   <body>
-    <div class="container">
-      <div class="board">
-        <h1>TO-DO APP</h1>
+    <div class="app">
 
-        <!-- Input area -->
+      <!-- Header -->
+      <header class="header">
+        <div class="header-inner">
+          <div class="logo">
+            <span class="logo-icon">✦</span>
+            <span class="logo-text">TaskFlow</span>
+          </div>
+          <div class="task-counter">
+            <span id="pending-count">0</span>
+            <span class="counter-label">pending</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- Main Board -->
+      <main class="board">
+
+        <!-- Input Area -->
         <div class="input-area">
-          <input type="text" id="input-2" placeholder="Enter a task..." />
-          <button id="input-1">Add Task</button>
+          <div class="input-wrapper">
+            <span class="input-icon">+</span>
+            <input
+              type="text"
+              id="task-input"
+              placeholder="What needs to be done?"
+              autocomplete="off"
+            />
+          </div>
+          <button id="add-btn" aria-label="Add task">Add</button>
         </div>
 
-        <!-- Task list -->
-        <ul id="lists"></ul>
-      </div>
+        <!-- Filter Bar -->
+        <div class="filter-bar">
+          <button class="filter-btn active" data-filter="all">All</button>
+          <button class="filter-btn" data-filter="pending">Pending</button>
+          <button class="filter-btn" data-filter="done">Done</button>
+          <button id="clear-done-btn" class="clear-btn">Clear done</button>
+        </div>
+
+        <!-- Task List -->
+        <ul id="task-list" aria-label="Task list">
+          <!-- tasks injected by JS -->
+        </ul>
+
+        <!-- Empty State -->
+        <div class="empty-state" id="empty-state" hidden>
+          <div class="empty-icon">☀</div>
+          <p class="empty-title">Nothing here yet</p>
+          <p class="empty-sub">Add a task above to get started</p>
+        </div>
+
+      </main>
+
+      <!-- Footer -->
+      <footer class="footer">
+        <p>Tasks saved in your browser automatically.</p>
+      </footer>
+
     </div>
 
     <script src="script.js"></script>

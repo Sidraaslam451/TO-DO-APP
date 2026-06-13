@@ -1,151 +1,485 @@
-/* 🌸 Reset and Base Style */
-* {
+/* ═══════════════════════════════════════════════
+   TaskFlow — style.css
+   Design: deep navy + electric mint, Syne display
+═══════════════════════════════════════════════ */
+
+/* ── Tokens ──────────────────────────────────── */
+:root {
+  --bg:         #0d1117;
+  --surface:    #161b22;
+  --surface-2:  #1e242d;
+  --border:     #2a3340;
+  --accent:     #00e5a0;
+  --accent-dim: #00b37e;
+  --danger:     #ff4d6a;
+  --danger-dim: #cc2e4a;
+  --text-1:     #e6edf3;
+  --text-2:     #8b949e;
+  --text-3:     #484f58;
+  --radius-sm:  6px;
+  --radius-md:  10px;
+  --radius-lg:  16px;
+  --shadow:     0 8px 32px rgba(0, 0, 0, 0.45);
+  --transition: 0.2s ease;
+}
+
+/* ── Reset ───────────────────────────────────── */
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
+/* ── Base ────────────────────────────────────── */
+html, body {
+  height: 100%;
+}
+
 body {
-  font-family: 'Poppins', sans-serif;
-  background: linear-gradient(135deg, #74ebd5, #ACB6E5);
+  font-family: 'Inter', system-ui, sans-serif;
+  background: var(--bg);
+  color: var(--text-1);
+  min-height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center;
-  height: 100vh;
+  align-items: flex-start;
+  padding: 0 16px 60px;
 }
 
-/* 📋 To-Do Board */
-.board {
-  background: #ffffff;
-  padding: 25px 30px;
-  border-radius: 15px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-  width: 380px;
-  transition: all 0.3s ease;
+/* ── App Shell ───────────────────────────────── */
+.app {
+  width: 100%;
+  max-width: 520px;
 }
 
-.board:hover {
-  transform: translateY(-5px);
+/* ── Header ──────────────────────────────────── */
+.header {
+  padding: 28px 0 20px;
 }
 
-/* 📝 Input Area */
-.input-area {
-  display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
-}
-
-.input-area input {
-  flex: 1;
-  padding: 10px 12px;
-  border: 2px solid #ddd;
-  border-radius: 8px;
-  font-size: 15px;
-  transition: 0.3s;
-}
-
-.input-area input:focus {
-  border-color: #6a5acd;
-  outline: none;
-  box-shadow: 0 0 6px rgba(106, 90, 205, 0.3);
-}
-
-.input-area button {
-  padding: 10px 18px;
-  background: #6a5acd;
-  color: white;
-  border: none;
-  border-radius: 8px;
-  cursor: pointer;
-  font-weight: 600;
-  letter-spacing: 0.5px;
-  transition: background 0.3s;
-}
-
-.input-area button:hover {
-  background: #5941a9;
-}
-
-/* ✅ Task List */
-ul {
-  list-style-type: none;
-  padding: 0;
-  max-height: 300px;
-  overflow-y: auto;
-  scrollbar-width: thin;
-  scrollbar-color: #b0aee0 #f5f5f5;
-}
-
-/* 🎯 Each Task */
-li {
+.header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  background: #f8f8ff;
-  border: 1px solid #e2e2ff;
-  padding: 10px;
-  border-radius: 8px;
-  margin-bottom: 10px;
-  transition: all 0.3s ease;
 }
 
-li:hover {
-  background: #f0f0ff;
-  transform: scale(1.02);
+.logo {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
-/* ✏️ Task Input Inside List */
-li input[type="text"] {
-  border: none;
-  background: transparent;
-  font-size: 15px;
-  flex: 1;
-  color: #333;
+.logo-icon {
+  color: var(--accent);
+  font-size: 20px;
+  line-height: 1;
+  animation: spin-logo 8s linear infinite;
+}
+
+@keyframes spin-logo {
+  to { transform: rotate(360deg); }
+}
+
+.logo-text {
+  font-family: 'Syne', sans-serif;
+  font-size: 22px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text-1);
+}
+
+.task-counter {
+  display: flex;
+  align-items: baseline;
+  gap: 5px;
+}
+
+#pending-count {
+  font-family: 'Syne', sans-serif;
+  font-size: 28px;
+  font-weight: 800;
+  color: var(--accent);
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+.counter-label {
+  font-size: 13px;
+  color: var(--text-2);
   font-weight: 500;
 }
 
-li input[type="text"]:disabled {
-  color: #555;
+/* ── Board ───────────────────────────────────── */
+.board {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  box-shadow: var(--shadow);
 }
 
-/* 🔘 Buttons */
-li button {
+/* ── Input Area ──────────────────────────────── */
+.input-area {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 16px;
+}
+
+.input-wrapper {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 0 14px;
+  transition: border-color var(--transition), box-shadow var(--transition);
+}
+
+.input-wrapper:focus-within {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 3px rgba(0, 229, 160, 0.15);
+}
+
+.input-icon {
+  font-size: 20px;
+  color: var(--text-3);
+  margin-right: 10px;
+  line-height: 1;
+  transition: color var(--transition);
+}
+
+.input-wrapper:focus-within .input-icon {
+  color: var(--accent);
+}
+
+#task-input {
+  flex: 1;
+  background: transparent;
   border: none;
-  border-radius: 6px;
-  padding: 6px 10px;
-  font-size: 13px;
+  outline: none;
+  color: var(--text-1);
+  font-size: 15px;
+  font-family: 'Inter', sans-serif;
+  padding: 13px 0;
+}
+
+#task-input::placeholder {
+  color: var(--text-3);
+}
+
+#add-btn {
+  padding: 0 22px;
+  background: var(--accent);
+  color: #0d1117;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
   cursor: pointer;
-  transition: all 0.3s ease;
+  letter-spacing: 0.3px;
+  transition: background var(--transition), transform var(--transition);
+  white-space: nowrap;
 }
 
-li button:nth-child(2) {
-  background: #ff6b6b;
-  color: white;
+#add-btn:hover {
+  background: var(--accent-dim);
+  transform: translateY(-1px);
 }
 
-li button:nth-child(2):hover {
-  background: #e45858;
+#add-btn:active {
+  transform: translateY(0);
 }
 
-li button:nth-child(3) {
-  background: #6a5acd;
-  color: white;
+/* ── Filter Bar ──────────────────────────────── */
+.filter-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-bottom: 16px;
+  flex-wrap: wrap;
 }
 
-li button:nth-child(3):hover {
-  background: #5941a9;
+.filter-btn {
+  background: transparent;
+  border: 1px solid var(--border);
+  color: var(--text-2);
+  padding: 5px 14px;
+  border-radius: 20px;
+  font-size: 13px;
+  font-weight: 500;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all var(--transition);
 }
 
-/* 🌟 Scrollbar Design (for Chrome/Edge) */
-ul::-webkit-scrollbar {
-  width: 6px;
+.filter-btn:hover {
+  border-color: var(--accent);
+  color: var(--accent);
 }
 
-ul::-webkit-scrollbar-thumb {
-  background: #b0aee0;
-  border-radius: 10px;
+.filter-btn.active {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+  font-weight: 700;
 }
 
-ul::-webkit-scrollbar-track {
-  background: #f5f5f5;
+.clear-btn {
+  background: transparent;
+  border: none;
+  color: var(--text-3);
+  font-size: 13px;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  margin-left: auto;
+  padding: 5px 4px;
+  transition: color var(--transition);
+}
+
+.clear-btn:hover {
+  color: var(--danger);
+}
+
+/* ── Task List ───────────────────────────────── */
+#task-list {
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding-right: 2px;
+
+  scrollbar-width: thin;
+  scrollbar-color: var(--border) transparent;
+}
+
+#task-list::-webkit-scrollbar {
+  width: 4px;
+}
+
+#task-list::-webkit-scrollbar-thumb {
+  background: var(--border);
+  border-radius: 4px;
+}
+
+/* ── Task Item ───────────────────────────────── */
+.task-item {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--surface-2);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 10px 12px;
+
+  /* entrance */
+  opacity: 0;
+  transform: translateY(8px);
+  transition:
+    opacity 0.25s ease,
+    transform 0.25s ease,
+    border-color 0.2s ease,
+    background 0.2s ease;
+}
+
+.task-item.visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.task-item:hover {
+  border-color: #3a4455;
+  background: #1c232d;
+}
+
+.task-item.editing {
+  border-color: var(--accent);
+  box-shadow: 0 0 0 2px rgba(0, 229, 160, 0.12);
+}
+
+/* Exit animation */
+.task-item.removing {
+  animation: slide-out 0.22s ease forwards;
+}
+
+@keyframes slide-out {
+  to {
+    opacity: 0;
+    transform: translateX(20px);
+    max-height: 0;
+    padding: 0;
+    margin: 0;
+  }
+}
+
+/* ── Check Button ────────────────────────────── */
+.btn-check {
+  flex-shrink: 0;
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  border: 2px solid var(--border);
+  background: transparent;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all var(--transition);
+}
+
+.btn-check:hover {
+  border-color: var(--accent);
+}
+
+.task-item.done .btn-check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.check-icon {
+  font-size: 11px;
+  font-weight: 700;
+  color: #0d1117;
+  line-height: 1;
+}
+
+/* ── Task Text ───────────────────────────────── */
+.task-text-input {
+  flex: 1;
+  background: transparent;
+  border: none;
+  outline: none;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  color: var(--text-1);
+  min-width: 0;
+  cursor: default;
+  transition: color var(--transition);
+}
+
+.task-text-input:not(:disabled) {
+  cursor: text;
+  color: var(--accent);
+}
+
+.task-item.done .task-text-input {
+  text-decoration: line-through;
+  color: var(--text-3);
+}
+
+/* ── Task Actions ────────────────────────────── */
+.task-actions {
+  display: flex;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+.btn-edit,
+.btn-delete {
+  border: none;
+  border-radius: var(--radius-sm);
+  padding: 5px 10px;
+  font-size: 12px;
+  font-weight: 600;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: all var(--transition);
+}
+
+.btn-edit {
+  background: transparent;
+  color: var(--text-2);
+  border: 1px solid var(--border);
+}
+
+.btn-edit:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+}
+
+.btn-edit.saving {
+  background: var(--accent);
+  border-color: var(--accent);
+  color: #0d1117;
+}
+
+.btn-delete {
+  background: transparent;
+  color: var(--text-3);
+  font-size: 13px;
+  padding: 5px 8px;
+  line-height: 1;
+}
+
+.btn-delete:hover {
+  background: var(--danger);
+  color: #fff;
+}
+
+/* ── Empty State ─────────────────────────────── */
+.empty-state {
+  text-align: center;
+  padding: 40px 20px;
+  color: var(--text-3);
+}
+
+.empty-icon {
+  font-size: 36px;
+  margin-bottom: 12px;
+  opacity: 0.4;
+}
+
+.empty-title {
+  font-size: 16px;
+  font-weight: 600;
+  color: var(--text-2);
+  margin-bottom: 4px;
+}
+
+.empty-sub {
+  font-size: 13px;
+}
+
+/* ── Footer ──────────────────────────────────── */
+.footer {
+  text-align: center;
+  padding: 16px 0 0;
+  font-size: 12px;
+  color: var(--text-3);
+}
+
+/* ── Shake Animation ─────────────────────────── */
+@keyframes shake {
+  0%, 100% { transform: translateX(0); }
+  20%       { transform: translateX(-6px); }
+  40%       { transform: translateX(6px); }
+  60%       { transform: translateX(-4px); }
+  80%       { transform: translateX(4px); }
+}
+
+.shake {
+  animation: shake 0.35s ease;
+}
+
+/* ── Reduced Motion ──────────────────────────── */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* ── Mobile ──────────────────────────────────── */
+@media (max-width: 420px) {
+  .board { padding: 16px; }
+
+  #add-btn { padding: 0 14px; font-size: 13px; }
+
+  .task-text-input { font-size: 13px; }
+
+  .btn-edit, .btn-delete { padding: 4px 8px; }
 }
